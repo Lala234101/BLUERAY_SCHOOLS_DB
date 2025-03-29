@@ -1,0 +1,78 @@
+-- Create the Students table first (no dependencies)
+CREATE TABLE students (
+    student_id SERIAL PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    date_of_birth DATE NOT NULL,
+    email VARCHAR(100) UNIQUE,
+    phone VARCHAR(15),
+    enrollment_date DATE DEFAULT CURRENT_DATE,
+    status VARCHAR(20)
+);
+
+-- Create the Departments table next (no dependencies)
+CREATE TABLE departments (
+    department_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    head_teacher_id INT, -- We'll add the foreign key later
+    description TEXT
+);
+
+-- Now create the Teachers table (will reference Departments)
+CREATE TABLE teachers (
+    teacher_id SERIAL PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE,
+    phone VARCHAR(15),
+    hire_date DATE DEFAULT CURRENT_DATE,
+    qualification TEXT,
+    department_id INT -- We'll add the foreign key later
+);
+
+-- Create the Courses table (references Departments and Teachers)
+CREATE TABLE courses (
+    course_id SERIAL PRIMARY KEY,
+    code VARCHAR(10) UNIQUE NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    description TEXT,
+    credits INT NOT NULL,
+    department_id INT, -- We'll add the foreign key later
+    teacher_id INT -- We'll add the foreign key later
+);
+
+-- Create the Enrollments table (references Students and Courses)
+CREATE TABLE enrollments (
+    enrollment_id SERIAL PRIMARY KEY,
+    student_id INT, -- We'll add the foreign key later
+    course_id INT, -- We'll add the foreign key later
+    enrollment_date DATE DEFAULT CURRENT_DATE,
+    status VARCHAR(20) DEFAULT 'Enrolled',
+    UNIQUE(student_id, course_id)
+);
+
+-- Now, add the foreign key constraints using ALTER TABLE
+
+-- For Teachers table
+ALTER TABLE teachers 
+ADD CONSTRAINT fk_department_id 
+FOREIGN KEY (department_id) 
+REFERENCES Departments(department_id);
+
+-- For Courses table
+ALTER TABLE courses 
+ADD CONSTRAINT fk_department_id 
+FOREIGN KEY (department_id) 
+REFERENCES Departments(department_id),
+ADD CONSTRAINT fk_teacher_id 
+FOREIGN KEY (teacher_id) 
+REFERENCES Teachers(teacher_id);
+
+-- For Enrollments table
+ALTER TABLE enrollments
+ADD CONSTRAINT fk_student_id
+FOREIGN KEY (student_id)
+REFERENCES Students(student_id),
+ADD CONSTRAINT fk_course_id
+FOREIGN KEY (course_id)
+REFERENCES Courses(course_id);

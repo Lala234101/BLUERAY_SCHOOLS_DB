@@ -1,0 +1,95 @@
+ok Documentation for the SQL Schema
+
+Below is a detailed documentation of the SQL schema provided, describing the purpose and structure of each table, its fields, and relationships.
+
+---
+
+ 1. Students Table
+This table stores information about students enrolled in the school.
+
+ Fields
+- student_id (SERIAL, Primary Key): A unique identifier for each student, auto-incremented.
+- first_name (VARCHAR(50), NOT NULL): The first name of the student.
+- last_name (VARCHAR(50), NOT NULL): The last name of the student.
+- date_of_birth (DATE, NOT NULL): The date of birth of the student.
+- email (VARCHAR(100), UNIQUE): The email address of the student, ensuring no duplicates.
+- phone (VARCHAR(15)): The phone number of the student.
+- enrollment_date (DATE, DEFAULT CURRENT_DATE): The date the student enrolled, defaults to the current date.
+- status (VARCHAR(20)): The current status of the student (e.g., active, inactive, graduated).
+
+ Purpose
+- This table holds core information about students, which is referenced in the Enrollments table.
+
+---
+
+ 2. Departments Table
+This table contains information about departments within the school.
+
+ Fields
+- department_id (SERIAL, Primary Key): A unique identifier for each department.
+- name (VARCHAR(100), NOT NULL): The name of the department (e.g., Mathematics, Science).
+- head_teacher_id (INT): A reference to the head teacher of the department (to be set as a foreign key).
+- description (TEXT): Additional information about the department.
+
+ Purpose
+- Departments categorize the academic and administrative structure of the school.
+
+---
+
+ 3. Teachers Table
+This table holds information about the teachers employed at the school.
+
+ Fields
+- teacher_id (SERIAL, Primary Key): A unique identifier for each teacher, auto-incremented.
+- first_name (VARCHAR(50), NOT NULL): The first name of the teacher.
+- last_name (VARCHAR(50), NOT NULL): The last name of the teacher.
+- email (VARCHAR(100), UNIQUE): The email address of the teacher, ensuring no duplicates.
+- phone (VARCHAR(15)): The phone number of the teacher.
+- hire_date (DATE, DEFAULT CURRENT_DATE): The date the teacher was hired, defaults to the current date.
+- department_id (INT): A reference to the department the teacher belongs to (to be set as a foreign key).
+
+ Purpose
+- Stores details about teachers, linking them to the Departments and Courses tables.
+
+---
+
+ 4. Courses Table
+This table stores information about courses offered by the school.
+
+ Fields
+- course_id (SERIAL, Primary Key): A unique identifier for each course.
+- code (VARCHAR(10), UNIQUE, NOT NULL): A unique course code (e.g., MATH101).
+- name (VARCHAR(100), NOT NULL): The name of the course.
+- description (TEXT): A detailed description of the course.
+- credits (INT, NOT NULL): The number of credits awarded for completing the course.
+- department_id (INT): A reference to the department offering the course (to be set as a foreign key).
+- teacher_id (INT): A reference to the teacher responsible for the course (to be set as a foreign key).
+
+ Purpose
+- Represents academic courses and their associated metadata, linking to Departments and Teachers.
+
+---
+
+ 5. Enrollments Table
+This table tracks student enrollments in courses.
+
+ Fields
+- enrollment_id (SERIAL, Primary Key): A unique identifier for each enrollment.
+- student_id (INT): A reference to the student enrolling in the course (to be set as a foreign key).
+- course_id (INT): A reference to the course being enrolled in (to be set as a foreign key).
+- enrollment_date (DATE, DEFAULT CURRENT_DATE): The date the enrollment occurred, defaults to the current date.
+- status (VARCHAR(20), DEFAULT 'Enrolled'): The status of the enrollment (e.g., enrolled, completed, dropped).
+- Unique Constraint: Ensures that a student can enroll in a course only once.
+
+ Purpose
+- Manages the many-to-many relationship between students and courses, enabling tracking of enrollments.
+
+---
+
+ Relationships
+1. Primary and Foreign Keys
+   - head_teacher_id in Departments will reference teacher_id in Teachers.
+   - department_id in Teachers will reference department_id in Departments.
+   - department_id and teacher_id in Courses will reference Departments and Teachers respectively.
+   - student_id and course_id in Enrollments will reference Students and Courses respectively.
+

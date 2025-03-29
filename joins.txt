@@ -1,0 +1,156 @@
+LEFT JOIN
+
+-- Retrieve all students and their enrolled courses (if any).
+
+SELECT s.first_name, s.last_name, c.name AS course_name
+FROM students s
+LEFT JOIN enrollments e ON s.student_id = e.student_id
+LEFT JOIN courses c ON e.course_id = c.course_id;
+
+
+-- List all courses and their respective departments, including courses without a department.
+
+SELECT c.name AS course_name, d.name AS department_name
+FROM courses c
+LEFT JOIN departments d ON c.department_id = d.department_id;
+
+
+-- Find all teachers and the courses they teach, including teachers without courses.
+
+SELECT t.first_name, t.last_name, c.name AS course_name
+FROM teachers t
+LEFT JOIN courses c ON t.teacher_id = c.teacher_id;
+
+
+-- List all departments and their head teachers, including departments without head teachers assigned.
+
+SELECT d.name AS department_name, t.first_name AS head_teacher_first_name
+FROM departments d
+LEFT JOIN teachers t ON d.head_teacher_id = t.teacher_id;
+
+
+-- Retrieve all students and their phone numbers, even if no phone number is recorded.
+
+SELECT s.first_name, s.last_name, s.phone
+FROM students s
+LEFT JOIN enrollments e ON s.student_id = e.student_id;
+
+
+RIGHT JOIN
+
+-- Find all courses and the students enrolled in them, including courses with no students.
+
+SELECT c.name AS course_name, s.first_name AS student_name
+FROM courses c
+RIGHT JOIN enrollments e ON c.course_id = e.course_id
+RIGHT JOIN students s ON e.student_id = s.student_id;
+
+
+-- List all departments and the courses they offer, ensuring that departments with no courses are also shown.
+
+SELECT d.name AS department_name, c.name AS course_name
+FROM departments d
+RIGHT JOIN courses c ON d.department_id = c.department_id;
+
+
+-- Find all teachers and the departments they belong to, including unassigned departments.
+
+SELECT t.first_name AS teacher_name, d.name AS department_name
+FROM teachers t
+RIGHT JOIN departments d ON t.department_id = d.department_id;
+
+
+-- List all enrollments and the students enrolled, even if no student details are available.
+
+SELECT e.enrollment_id, s.first_name, s.last_name
+FROM enrollments e
+RIGHT JOIN students s ON e.student_id = s.student_id;
+
+
+Retrieve all courses and their descriptions, even if no description is available.
+
+SELECT c.name AS course_name, c.description
+FROM courses c
+RIGHT JOIN departments d ON c.department_id = d.department_id;
+
+
+INNER JOIN
+
+-- List all students who are enrolled in courses
+
+SELECT s.first_name, s.last_name, c.name AS course_name
+FROM students s
+INNER JOIN enrollments e ON s.student_id = e.student_id
+INNER JOIN courses c ON e.course_id = c.course_id;
+
+
+-- Find all courses and their corresponding teachers.
+
+SELECT c.name AS course_name, t.first_name AS teacher_name
+FROM courses c
+INNER JOIN teachers t ON c.teacher_id = t.teacher_id;
+
+
+-- Retrieve all teachers and the departments they belong to
+
+SELECT t.first_name AS teacher_name, d.name AS department_name
+FROM teachers t
+INNER JOIN departments d ON t.department_id = d.department_id;
+
+-- Find all students with enrollments, grouped by enrollment status.
+
+SELECT s.first_name, s.last_name, e.status
+FROM students s
+INNER JOIN enrollments e ON s.student_id = e.student_id;
+
+-- List all courses and the number of students enrolled in each
+
+SELECT c.name AS course_name, COUNT(e.student_id) AS enrolled_students
+FROM courses c
+INNER JOIN enrollments e ON c.course_id = e.course_id
+GROUP BY c.name;
+
+
+ FULL OUTER JOIN
+
+
+-- Retrieve all students and their enrollments, ensuring both unmatched students and enrollments are shown.
+
+SELECT s.first_name, s.last_name, e.enrollment_date
+FROM students s
+FULL OUTER JOIN enrollments e ON s.student_id = e.student_id;
+
+
+-- List all courses and the departments they are associated with, including unmatched courses or departments.
+
+SELECT c.name AS course_name, d.name AS department_name
+FROM courses c
+FULL OUTER JOIN departments d ON c.department_id = d.department_id;
+
+
+-- Find all teachers and the courses they teach, including unmatched teachers or courses.
+
+SELECT t.first_name AS teacher_name, c.name AS course_name
+FROM teachers t
+FULL OUTER JOIN courses c ON t.teacher_id = c.teacher_id;
+
+
+-- Retrieve all students and their assigned status, ensuring no student or enrollment record is excluded.
+
+SELECT s.first_name, s.last_name, e.status AS enrollment_status
+FROM students s
+FULL OUTER JOIN enrollments e ON s.student_id = e.student_id;
+
+
+-- Find all departments and their head teachers, including departments without a head teacher or unmatched teachers.
+
+SELECT d.name AS department_name, t.first_name AS head_teacher_name
+FROM departments d
+FULL OUTER JOIN teachers t ON d.head_teacher_id = t.teacher_id;
+
+
+
+
+
+
+

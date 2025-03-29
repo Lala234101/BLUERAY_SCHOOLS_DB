@@ -1,0 +1,113 @@
+-- Insert data into the Students table (example data)
+INSERT INTO Students (first_name, last_name, date_of_birth, email, phone) VALUES
+('Alice', 'Smith', '2008-07-10', 'alice.smith@bluerails.edu', '+2348012345678'),
+('Bob', 'Johnson', '2007-05-12', 'bob.johnson@bluerails.edu', '+2348134567890'),
+('Charlie', 'Williams', '2008-02-28', 'charlie.williams@bluerails.edu', '+2347087654321'),
+('David', 'Brown', '2007-09-15', 'david.brown@bluerails.edu', '+2349056789012'),
+('Emily', 'Davis', '2008-11-03', 'emily.davis@bluerails.edu', '+2348167890123'); 
+
+--adding 5 more records with status this time
+INSERT INTO Students (first_name, last_name, date_of_birth, email, phone, status) VALUES
+('Kendra', 'Garcia', '2008-03-15', 'kendra.garcia@bluerails.edu', '+2348156789012', 'Active'),
+('Liam', 'Rodriguez', '2007-11-21', 'liam.rodriguez@bluerails.edu', '+2347098765432', 'Inactive'),
+('Mia', 'Wilson', '2008-08-08', 'mia.wilson@bluerails.edu', '+2348065432109', 'Active'),
+('Noah', 'Martinez', '2007-04-29', 'noah.martinez@bluerails.edu', '+2349034567890', 'Graduated'),
+('Olivia', 'Anderson', '2008-12-17', 'olivia.anderson@bluerails.edu', '+2348187654321', 'Active');
+
+-- You can continue adding more students manually up to 20
+
+-- Update the status for the first 5 students (who were inserted without the status)
+
+UPDATE Students SET status = 'Active' WHERE student_id = 1;  -- Alice Smith
+UPDATE Students SET status = 'Graduated' WHERE student_id = 2; -- Bob Johnson
+UPDATE Students SET status = 'Inactive' WHERE student_id = 3;  -- Charlie Williams
+UPDATE Students SET status = 'Active' WHERE student_id = 4;  -- David Brown
+UPDATE Students SET status = 'Active' WHERE student_id = 5;  -- Emily Davis
+ 
+
+
+-- Insert data into the Departments table
+INSERT INTO Departments (name, description) VALUES
+('Mathematics', 'The study of numbers, quantity, and space.'),
+('Science', 'The systematic study of the natural world.'),
+('English', 'The study of language and literature.'),
+('History', 'The study of past events.'),
+('Arts', 'Creative expression through various media.'),
+('Computer Science', 'The study of computation and information processing.');
+
+
+-- Insert data into the Teachers table (example data)
+INSERT INTO Teachers (first_name, last_name, email, phone, department_id) VALUES
+('Mr.', 'Jones', 'mr.jones@bluerails.edu', '+2348034567890', 1), -- Mathematics department
+('Ms.', 'Garcia', 'ms.garcia@bluerails.edu', '+2347023456789', 2), -- Science department
+('Mrs.', 'Smith', 'mrs.smith@bluerails.edu', '+2348176543210', 3); -- English department
+
+-- Insert more data into the Teachers table (10 records) with their hire date
+
+INSERT INTO Teachers (first_name, last_name, email, phone, department_id, hire_date) VALUES
+('Mr.', 'Anderson', 'mr.anderson@bluerails.edu', '+2348112345678', 1, '2022-08-15'), -- Mathematics
+('Ms.', 'Thomas', 'ms.thomas@bluerails.edu', '+2347045678901', 2, '2023-01-20'), -- Science
+('Mrs.', 'Jackson', 'mrs.jackson@bluerails.edu', '+2348098765432', 3, '2021-09-10'), -- English
+('Mr.', 'White', 'mr.white@bluerails.edu', '+2349076543210', 4, '2024-03-05'), -- History
+('Ms.', 'Harris', 'ms.harris@bluerails.edu', '+2348132109876', 5, '2022-05-12'), -- Arts
+('Mr.', 'Martin', 'mr.martin@bluerails.edu', '+2347065432109', 1, '2023-11-18'), -- Mathematics
+('Ms.', 'Thompson', 'ms.thompson@bluerails.edu', '+2348109876543', 2, '2021-07-02'), -- Science
+('Mrs.', 'Garcia', 'mrs.garcia@bluerails.edu', '+2349021098765', 3, '2024-06-28'), -- English
+('Mr.', 'Robinson', 'mr.robinson@bluerails.edu', '+2348054321098', 4, '2022-12-24'), -- History
+('Ms.', 'Clark', 'ms.clark@bluerails.edu', '+2347087654321', 5, '2023-09-09'); -- Arts
+
+-- Continue adding more teachers manually up to 40
+
+
+-- Insert data into the Courses table (example data)
+INSERT INTO Courses (code, name, description, credits, department_id, teacher_id) VALUES
+('ALG101', 'Algebra I', 'Introduction to algebra', 3, 1, 1), -- Math, Mr. Jones
+('BIO201', 'Biology', 'Fundamentals of biology', 4, 2, 2), -- Science, Ms. Garcia
+('ENG101', 'American Literature', 'Survey of American literature', 3, 3, 3); -- English, Mrs. Smith
+
+INSERT INTO Courses (code, name, description, credits, department_id, teacher_id) VALUES
+('MAT201', 'Calculus I', 'Introduction to calculus', 4, 1, 1), -- Math, Mr. Anderson
+('SCI301', 'Chemistry', 'Fundamentals of chemistry', 3, 2, 2), -- Science, Ms. Thomas
+('ENG201', 'British Literature', 'Survey of British literature', 3, 3, 3), -- English, Mrs. Jackson
+('HIS201', 'Ancient History', 'Study of ancient civilizations', 3, 4, 4), -- History, Mr. White
+('ART201', 'Sculpture', 'Introduction to sculpting techniques', 2, 5, 5), -- Arts, Ms. Harris
+('CSC101', 'Introduction to Programming', 'Fundamentals of programming', 4, 6, 1), -- Computer Science, Mr. Anderson
+('PHY101', 'Physics', 'Basic principles of physics', 3, 2, 2), -- Science, Ms. Thomas
+('LIT201', 'Creative Writing', 'Developing creative writing skills', 2, 3, 3), -- English, Mrs. Jackson
+('GEO101', 'Geography', 'Exploring the world and its features', 3, 4, 4), -- History, Mr. White
+('MUS101', 'Music Theory', 'Fundamentals of music theory', 2, 5, 5); -- Arts, Ms. Harris
+
+-- Continue adding more courses manually 
+
+
+-- Insert data into the Enrollments table (example data)
+-- note that some of this data will be added automatically
+INSERT INTO Enrollments (student_id, course_id) VALUES
+(1, 1),  -- Alice in Algebra I
+(1, 3),  -- Alice in American Literature
+(2, 1);  -- Bob in Algebra I
+
+-- Insert more data into the Enrollments table (with enrollment_date and status)
+INSERT INTO Enrollments (student_id, course_id, enrollment_date, status) VALUES
+(6, 1, '2024-09-01', 'Enrolled'),  -- Frank Miller enrolled in Algebra I 
+(7, 2, '2024-09-01', 'Enrolled'),  -- Grace Wilson enrolled in Biology 
+(8, 3, '2024-09-05', 'Enrolled'),  -- Henry Moore enrolled in American Literature 
+(9, 4, '2024-09-08', 'Enrolled'),  -- Isabella Taylor enrolled in World History 
+(10, 5, '2024-09-10', 'Enrolled'), -- Jack Anderson enrolled in Introduction to Painting 
+(1, 2, '2024-09-02', 'Enrolled'),  -- Alice Smith enrolled in Biology 
+(2, 4, '2024-09-03', 'Dropped'),  -- Bob Johnson enrolled in World History (but dropped)
+(3, 6, '2024-09-06', 'Enrolled'),  -- Charlie Williams enrolled in Introduction to Programming 
+(4, 8, '2024-09-09', 'Enrolled'),  -- David Brown enrolled in Physics
+(5, 10, '2024-09-11', 'Enrolled'), -- Emily Davis enrolled in Music Theory 
+(11, 1, '2024-09-12', 'Enrolled'), -- Kendra Garcia enrolled in Algebra I
+(12, 3, '2024-09-13', 'Dropped'), -- Liam Rodriguez enrolled in American Literature (but dropped)
+(13, 5, '2024-09-15', 'Enrolled'), -- Mia Wilson enrolled in Introduction to Painting
+(14, 7, '2024-09-16', 'Enrolled'), -- Noah Martinez enrolled in Physics
+(15, 9, '2024-09-18', 'Enrolled'), -- Olivia Anderson enrolled in Geography
+(1, 6, '2024-09-03', 'Enrolled'),  -- Alice Smith enrolled in Introduction to Programming
+(2, 8, '2024-09-05', 'Enrolled'),  -- Bob Johnson enrolled in Physics
+(3, 10, '2024-09-07', 'Dropped'), -- Charlie Williams enrolled in Music Theory (but dropped)
+(4, 1, '2024-09-10', 'Enrolled'),  -- David Brown enrolled in Algebra I
+(5, 3, '2024-09-12', 'Enrolled'); -- Emily Davis enrolled in American Literature
+
+-- Continue adding more enrollments manually
